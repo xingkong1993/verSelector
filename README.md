@@ -23,6 +23,7 @@ new verSelector();
 1. data参数
     1. data-selector：插件关键字，在select中加入该关键字同时实例插件即可支持搜索相关关键词选择
     2. data-selector-checks：多选关键词，加入关键词且赋值为true即可支持多选搜索条件，在加入此关键词之前需要加入data-selector关键词
+2. 插件暂不支持IE浏览器使用
 ###### 四、样式实例
 [多选&单选](https://www.xincheng-blog.cn/ver.select.html)
 ###### 版权信息
