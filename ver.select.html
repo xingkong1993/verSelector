@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport"/>
+    <title>select搜索与多选</title>
+</head>
+<body>
+<div>
+    <h5>单选</h5>
+    <select name="search" id="search" data-selector>
+        <option value="">请选择</option>
+    </select>
+</div>
+<div>
+    <h5>多选</h5>
+    <select name="searchs" id="searchs" data-selector data-selector-checks="true">
+        <option value="">请选择</option>
+    </select>
+</div>
+</body>
+<script src="asset/js/jquery.min.js"></script>
+<script src="asset/js/area.js"></script>
+<script src="asset/js/select.js"></script>
+<script src="js/verSelect.js"></script>
+<script>
+    new verSelector();
+</script>
+</html>

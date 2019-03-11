@@ -1,0 +1,172 @@
+@charset "UTF-8";
+*[data-selector] {
+    display: none;
+}
+
+.verSelector {
+    width: 180px;
+    top: 0;
+    left: 0;
+    position: relative;
+    display: inline-block;
+}
+
+.verSelector .verSelector-box {
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #dedede;
+    padding: 0 10px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.verSelector .verSelector-text {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(100% - 30px);
+}
+
+.verSelector .verSelector-box i {
+    float: right;
+    line-height: 30px;
+}
+
+.verSelector .verSelector-search {
+    position: relative;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dedede;
+}
+
+.verSelector .verSelector-items {
+    background: #fff;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    display: none;
+    width: 110%;
+    position: absolute;
+    z-index: 99999;
+}
+
+.verSelector .verSelector-search input {
+    border: 0;
+    outline: #dedede !important;
+    padding: 0 10px !important;
+    line-height: 30px !important;
+    height: 30px !important;
+    width: calc(100% - 40px) !important;
+    margin: 0;
+}
+
+.verSelector .verSelector-search i {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.verSelector .verSelector-option {
+    max-height: 300px;
+    overflow: auto;
+    line-height: 30px;
+    border-top: 1px solid #dedede;
+    clear: both;
+    background: #fff;
+}
+
+.verSelector .verSelector-option p {
+    cursor: pointer;
+    /*text-indent: 10px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.verSelector .verSelector-option p:hover, .verSelector .verSelector-option p.actives {
+    color: #fff;
+    background: orangered;
+}
+
+.verSelector-focus {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .5);
+    display: none;
+    z-index: 666;
+}
+
+.verSelector-focus .icon-guanbi {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.verSelector-focus-show {
+    display: block !important;
+}
+
+.verSelector-btns {
+    height: 35px;
+    border-top: 1px solid #dedede;
+    line-height: 35px;
+    padding: 0 15px;
+}
+
+.verSelector-btn {
+    width: 60px;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    outline: none;
+    float: right;
+    color: #fff;
+}
+
+.verSelector-success-button {
+    background: #0a8cd2;
+}
+
+.verSelector-error-button {
+    background: orangered;
+    margin-right: 5px !important;
+}
+
+.verSelector-input-list {
+    display: none;
+}
+
+.verSelector-caret {
+    font-size: 12px !important;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .verSelector-items {
+        position: fixed !important;
+        width: 90vw !important;
+        height: 90vh;
+        top: 50%;
+        left: 50%;
+        margin-left: -45vw;
+        margin-top: -45vh;
+        border: 0;
+        overflow: hidden;
+    }
+
+    .verSelector .verSelector-option {
+        max-height: calc( 100% - 45px );
+    }
+
+    .verSelector-max-options{
+        height: calc(100% - 90px) !important;
+        max-height: calc(100% - 90px) !important;
+    }
+}
