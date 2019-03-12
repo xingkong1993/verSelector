@@ -1,43 +1,16 @@
 window.verSelector = (function () {
     var selector = function (param) {
-        this.select = document.querySelectorAll("*[data-selector]");
-        //加载样式列表
-        this.style();
-        changes(this.select);
-    };
-    //加载默认元素
-    selector.prototype = {
-        getPath: function () {
-            var jsPath = document.currentScript ? document.currentScript.src : function () {
-                var js = document.scripts
-                    , last = js.length - 1
-                    , src;
-                for (var i = last; i > 0; i--) {
-                    if (js[i].readyState === 'interactive') {
-                        src = js[i].src;
-                        break;
-                    }
-                }
-                return src || js[last].src;
-            }();
-            return jsPath.substring(0, jsPath.lastIndexOf('/') + 1);
-        }(),
-        style: function () {
-            var path = this.getPath + "need/";
-            var icon_link = document.createElement("link"),
-                css_link = document.createElement("link");
-            icon_link.href = path + "vericon.css?version=1.0";
-            css_link.href = path + "select.css?version=1.0";
-            css_link.rel = icon_link.rel = "stylesheet";
-            css_link.type = icon_link.type = "text/css";
-            var link = document.getElementsByTagName("head")[0];
-            link.appendChild(css_link);
-            link.appendChild(icon_link);
+        if(!ie) {
+            return false;
         }
+        foreachs;
+        css();
+        select();
     };
-    //生成选择组件
-    var changes = function (items) {
-        items.forEach(function (it) {
+    //下拉列表加载
+    var select = function () {
+        var items = document.querySelectorAll("[data-selector]");
+        [].forEach.call(items,function (it) {
             //生成select表单
             var name = it.name,
                 checks = it.getAttribute("data-selector-checks");
@@ -87,42 +60,24 @@ window.verSelector = (function () {
             }
         });
     };
-    //点击取消按钮
-    var reset_checks = function () {
-        var actives = this.parentElement.parentElement.querySelectorAll(".actives");
-        var parent = this.parentElement.parentElement.parentElement;
-        actives.forEach(function (active) {
-            active.classList.remove("actives");
-            var icon = active.querySelector(".verSelector-icon-check");
-            if (icon) {
-                icon.classList.add("icon-check-box");
-                icon.classList.remove("icon-check-box-cicre");
+    //相关操作信息
+    var option = function () {
+        document.onclick = function (e) {
+            var target = e.target;
+            //判断是否是下拉选框点击时间
+            if (target.classList.contains("verSelector-one")) {
+                if (target.classList.contains("verSelector-text") || target.classList.contains("verSelector-caret")) {
+                    target = target.parentElement;
+                }
+                var parent = target.parentElement;
+                _deletes(parent);
+                show_options(target);
+            } else if (target.classList.contains("verSelector-two")) {
+                return true;
+            } else {
+                _deletes();
             }
-        });
-        parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
-        parent.querySelector(".verSelector-items").classList.remove("verSelector-focus-show");
-    };
-    //点击保存按钮
-    var save_checks = function () {
-        var parent = this.parentElement.parentElement.parentElement,
-            actives = this.parentElement.parentElement.querySelectorAll(".actives");
-        if (actives.length < 1) {
-            // alert("系统检测到您没有选择任何参数");
-            this.parentElement.parentElement.classList.remove("verSelector-focus-show");
-            parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
-            parent.querySelector(".verSelector-text").innerText = parent.getAttribute("data-value");
-            return false;
         }
-        var html = parent.querySelector(".verSelector-input-list"),
-            _h = html.querySelectorAll("input[type='hidden']"),
-            text = [];
-        _h.forEach(function (its) {
-            text.push(its.getAttribute("data-name"));
-        });
-        text = text.join(",");
-        parent.querySelector(".verSelector-text").innerText = text;
-        parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
-        parent.querySelector(".verSelector-items").classList.remove("verSelector-focus-show");
     };
     //搜索关键字查询
     var keyup_search = function () {
@@ -148,12 +103,12 @@ window.verSelector = (function () {
         if (defa_input) {
             defa_input = defa_input.querySelectorAll("input");
             if (defa_input) {
-                defa_input.forEach(function (ims) {
+                [].forEach.call(defa_input,function (ims) {
                     default_input_value.push(ims.value);
                 });
             }
         }
-        child.forEach(function (ite) {
+        [].forEach.call(child,function (ite) {
             if (ite.innerText.indexOf(value) >= 0) {
                 text.push(ite);
             }
@@ -190,6 +145,44 @@ window.verSelector = (function () {
         }
         _option(check);
     };
+    //删除列表
+    var _deletes = function (target) {
+        var item = document.querySelectorAll(".verSelector-items");
+        var focus = document.querySelectorAll(".verSelector-focus");
+        [].forEach.call(item,function (itm) {
+            if ((itm.parentElement != target && target) || itm.classList.contains("verSelector-focus-show")) {
+                itm.classList.remove("verSelector-focus-show");
+                //判断是否有选中的值？
+                var inputs = itm.parentElement.querySelector(".verSelector-input-list").querySelectorAll("input[type='hidden']");
+                var defat = itm.parentElement.querySelector(".verSelector-text").innerText;
+                defat = defat.split(",");
+                if (inputs.length) {
+                    var txt = [];
+                    [].forEach.call(inputs,function (input) {
+                        var name = input.getAttribute("data-name");
+                        if (defat.indexOf(name) >= 0) {
+                            txt.push(name);
+                        } else {
+                            input.parentElement.removeChild(input);
+                        }
+                    });
+                    if (txt.length) {
+                        txt = txt.join(",");
+                        itm.parentElement.querySelector(".verSelector-text").innerText = txt;
+                    } else {
+                        itm.parentElement.querySelector(".verSelector-text").innerText = itm.parentElement.getAttribute("data-value");
+                    }
+                } else {
+                    itm.parentElement.querySelector(".verSelector-text").innerText = itm.parentElement.getAttribute("data-value");
+                }
+            }
+        });
+        if (isMobile()) {
+            [].forEach.call(focus,function (itm) {
+                itm.classList.remove("verSelector-focus-show");
+            });
+        }
+    };
     //显示选择列表
     var show_options = function (tar) {
         var parents = tar.parentNode,
@@ -211,14 +204,14 @@ window.verSelector = (function () {
         if (defa_input) {
             defa_input = defa_input.querySelectorAll("input");
             if (defa_input) {
-                defa_input.forEach(function (ims) {
+                [].forEach.call(defa_input,function (ims) {
                     default_input_value.push(ims.value);
                 });
             }
         }
 
         var _h = "";
-        options.forEach(function (i) {
+        [].forEach.call(options,function (i) {
             var cl = "";
             var icon = "";
             var value = i.getAttribute("value");
@@ -246,66 +239,10 @@ window.verSelector = (function () {
         ops.innerHTML = _h;
         _option(check);
     };
-    //相关操作信息
-    var option = function () {
-        document.onclick = function (e) {
-            var target = e.target;
-            //判断是否是下拉选框点击时间
-            if (target.classList.contains("verSelector-one")) {
-                if (target.classList.contains("verSelector-text") || target.classList.contains("verSelector-caret")) {
-                    target = target.parentElement;
-                }
-                var parent = target.parentElement;
-                _deletes(parent);
-                show_options(target);
-            } else if (target.classList.contains("verSelector-two")) {
-                return true;
-            } else {
-                _deletes();
-            }
-        }
-    };
-    var _deletes = function (target) {
-        var item = document.querySelectorAll(".verSelector-items");
-        var focus = document.querySelectorAll(".verSelector-focus");
-        item.forEach(function (itm) {
-            if ((itm.parentElement != target && target) || itm.classList.contains("verSelector-focus-show")) {
-                itm.classList.remove("verSelector-focus-show");
-                //判断是否有选中的值？
-                var inputs = itm.parentElement.querySelector(".verSelector-input-list").querySelectorAll("input[type='hidden']");
-                var defat = itm.parentElement.querySelector(".verSelector-text").innerText;
-                defat = defat.split(",");
-                if (inputs.length) {
-                    var txt = [];
-                    inputs.forEach(function (input) {
-                        var name = input.getAttribute("data-name");
-                        if (defat.indexOf(name) >= 0) {
-                            txt.push(name);
-                        } else {
-                            input.parentElement.removeChild(input);
-                        }
-                    });
-                    if (txt.length) {
-                        txt = txt.join(",");
-                        itm.parentElement.querySelector(".verSelector-text").innerText = txt;
-                    } else {
-                        itm.parentElement.querySelector(".verSelector-text").innerText = itm.parentElement.getAttribute("data-value");
-                    }
-                } else {
-                    itm.parentElement.querySelector(".verSelector-text").innerText = itm.parentElement.getAttribute("data-value");
-                }
-            }
-        });
-        if (isMobile()) {
-            focus.forEach(function (itm) {
-                itm.classList.remove("verSelector-focus-show");
-            })
-        }
-    };
     //选中某一项条件
     var _option = function (checks) {
         var options = document.querySelectorAll(".verSelector-option-value");
-        options.forEach(function (items) {
+        [].forEach.call(options,function (items) {
             items.onclick = function () {
                 var text = this.innerText,
                     value = this.getAttribute("data-value");
@@ -313,7 +250,7 @@ window.verSelector = (function () {
                     this.classList.add("actives");
                     var parent = this.parentElement.parentElement.parentElement,
                         name = parent.getAttribute("data-name");
-                    options.forEach(function (ic) {
+                    [].forEach.call(options,function (ic) {
                         if (ic.innerText != text) {
                             ic.classList.remove("actives");
                         }
@@ -347,6 +284,153 @@ window.verSelector = (function () {
             }
         });
     };
+    //点击取消按钮
+    var reset_checks = function () {
+        var actives = this.parentElement.parentElement.querySelectorAll(".actives");
+        var parent = this.parentElement.parentElement.parentElement;
+        [].forEach.call(actives,function (active) {
+            active.classList.remove("actives");
+            var icon = active.querySelector(".verSelector-icon-check");
+            if (icon) {
+                icon.classList.add("icon-check-box");
+                icon.classList.remove("icon-check-box-cicre");
+            }
+        });
+        parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
+        parent.querySelector(".verSelector-items").classList.remove("verSelector-focus-show");
+    };
+    //点击保存按钮
+    var save_checks = function () {
+        var parent = this.parentElement.parentElement.parentElement,
+            actives = this.parentElement.parentElement.querySelectorAll(".actives");
+        if (actives.length < 1) {
+            // alert("系统检测到您没有选择任何参数");
+            this.parentElement.parentElement.classList.remove("verSelector-focus-show");
+            parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
+            parent.querySelector(".verSelector-text").innerText = parent.getAttribute("data-value");
+            return false;
+        }
+        var html = parent.querySelector(".verSelector-input-list"),
+            _h = html.querySelectorAll("input[type='hidden']"),
+            text = [];
+        [].forEach.call(_h,function (its) {
+            text.push(its.getAttribute("data-name"));
+        });
+        text = text.join(",");
+        parent.querySelector(".verSelector-text").innerText = text;
+        parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
+        parent.querySelector(".verSelector-items").classList.remove("verSelector-focus-show");
+    };
+    //公共参数
+    var css = function () {
+        var path = getPath + "need/";
+        var icon_link = document.createElement("link"),
+            css_link = document.createElement("link");
+        icon_link.href = path + "vericon.css?version=1.0";
+        css_link.href = path + "select.css?version=1.0";
+        css_link.rel = icon_link.rel = "stylesheet";
+        css_link.type = icon_link.type = "text/css";
+        var link = document.getElementsByTagName("head")[0];
+        link.appendChild(css_link);
+        link.appendChild(icon_link);
+    };
+    var foreachs = function () {
+        if (!Array.prototype.forEach) {
+            Array.prototype.forEach = function (callback, thisArg) {
+                var T, k;
+                if (this == null) {
+                    throw new TypeError(" this is null or not defined");
+                }
+                var O = Object(this);
+                var len = O.length >>> 0; // Hack to convert O.length to a UInt32
+                if ({}.toString.call(callback) != "[object Function]") {
+                    throw new TypeError(callback + " is not a function");
+                }
+                if (thisArg) {
+                    T = thisArg;
+                }
+                k = 0;
+                while (k < len) {
+                    var kValue;
+                    if (k in O) {
+                        kValue = O[k];
+                        callback.call(T, kValue, k, O);
+                    }
+                    k++;
+                }
+            };
+        }
+
+        if (!("classList" in document.documentElement)) {
+            Object.defineProperty(HTMLElement.prototype, 'classList', {
+                get: function() {
+                    var self = this;
+                    function update(fn) {
+                        return function(value) {
+                            var classes = self.className.split(/\s+/g),
+                                index = classes.indexOf(value);
+
+                            fn(classes, index, value);
+                            self.className = classes.join(" ");
+                        }
+                    }
+
+                    return {
+                        add: update(function(classes, index, value) {
+                            if (!~index) classes.push(value);
+                        }),
+
+                        remove: update(function(classes, index) {
+                            if (~index) classes.splice(index, 1);
+                        }),
+
+                        toggle: update(function(classes, index, value) {
+                            if (~index)
+                                classes.splice(index, 1);
+                            else
+                                classes.push(value);
+                        }),
+
+                        contains: function(value) {
+                            return !!~self.className.split(/\s+/g).indexOf(value);
+                        },
+
+                        item: function(i) {
+                            return self.className.split(/\s+/g)[i] || null;
+                        }
+                    };
+                }
+            });
+        }
+    }();
+    var getPath = function () {
+        var jsPath = document.currentScript ? document.currentScript.src : function () {
+            var js = document.scripts
+                , last = js.length - 1
+                , src;
+            for (var i = last; i > 0; i--) {
+                if (js[i].readyState === 'interactive') {
+                    src = js[i].src;
+                    break;
+                }
+            }
+            return src || js[last].src;
+        }();
+        return jsPath.substring(0, jsPath.lastIndexOf('/') + 1);
+    }();
+    var ie = function () {
+        var DEFAULT_VERSION = 8.0;
+        var ua = navigator.userAgent.toLowerCase();
+        var isIE = ua.indexOf("msie")>-1;
+        var safariVersion;
+        if(isIE){
+            safariVersion =  ua.match(/msie ([\d.]+)/)[1];
+        }
+        if(safariVersion <= DEFAULT_VERSION ){
+            return false
+        }
+        return true;
+    };
     //在某一元素之后追加元素
     var insertAfter = function (item, afters) {
         var parent = afters.parentNode;
@@ -379,7 +463,6 @@ window.verSelector = (function () {
     };
     var trim = function (s) {
         return s.replace(/(^\s*)|(\s*$)/g, "");
-    }
-
+    };
     return selector;
 })();
