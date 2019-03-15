@@ -309,21 +309,19 @@ window.verSelector = (function () {
 
 
     };
-    //点击取消按钮
+    //点击清除按钮
     var reset_checks = function () {
-        // var actives = this.parentElement.parentElement.querySelectorAll(".actives");
-        // var parent = this.parentElement.parentElement.parentElement;
-        // [].forEach.call(actives, function (active) {
-        //     active.classList.remove("actives");
-        //     var icon = active.querySelector(".verSelector-icon-check");
-        //     if (icon) {
-        //         icon.classList.add("icon-check-box");
-        //         icon.classList.remove("icon-check-box-cicre");
-        //     }
-        // });
+        var actives = this.parentElement.parentElement.querySelectorAll(".actives");
+        var parent = this.parentElement.parentElement.parentElement;
+        [].forEach.call(actives, function (active) {
+            active.classList.remove("actives");
+            var icon = active.querySelector(".verSelector-icon-check");
+            if (icon) {
+                icon.classList.add("icon-check-box");
+                icon.classList.remove("icon-check-box-cicre");
+            }
+        });
         _deletes(false,true);
-        // parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
-        // parent.querySelector(".verSelector-items").classList.remove("verSelector-focus-show");
     };
     //点击保存按钮
     var save_checks = function () {

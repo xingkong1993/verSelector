@@ -127,15 +127,15 @@
     margin-bottom: 10px;
     outline: none;
     float: right;
-    color: #fff;
+    background:none;
 }
 
 .verSelector-success-button {
-    background: #0a8cd2;
+    color: #0a8cd2;
 }
 
 .verSelector-error-button {
-    background: orangered;
+    color: orangered;
     margin-right: 5px !important;
 }
 
