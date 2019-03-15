@@ -321,7 +321,7 @@ window.verSelector = (function () {
                 icon.classList.remove("icon-check-box-cicre");
             }
         });
-        _deletes(false,true);
+        _deletes(this,true);
     };
     //点击保存按钮
     var save_checks = function () {
