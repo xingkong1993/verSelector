@@ -22,8 +22,8 @@ window.verSelector = (function () {
                 de_height = "";
             if (checks) {
                 html.setAttribute("data-selector-checks", true);
-                btn = " <div class=\"verSelector-btns verSelector-two\"><button type='button' class=\"verSelector-success-button verSelector-btn verSelector-two\">保存</button>\n" +
-                    " <button type='button' class=\"verSelector-error-button verSelector-btn verSelector-two\">取消</button> \n</div>\n";
+                btn = " <div class=\"verSelector-btns verSelector-two\"><button type='button' class=\"verSelector-success-button verSelector-btn verSelector-two\">确定</button>\n" +
+                    " <button type='button' class=\"verSelector-error-button verSelector-btn verSelector-two\">清除</button> \n</div>\n";
                 de_height = "verSelector-max-options";
 
             }
@@ -146,12 +146,14 @@ window.verSelector = (function () {
         _option(check);
     };
     //删除列表
-    var _deletes = function (target) {
+    var _deletes = function (target,show) {
         var item = document.querySelectorAll(".verSelector-items");
         var focus = document.querySelectorAll(".verSelector-focus");
         [].forEach.call(item, function (itm) {
             if ((itm.parentElement != target && target) || itm.classList.contains("verSelector-focus-show")) {
-                itm.classList.remove("verSelector-focus-show");
+                if(!show) {
+                    itm.classList.remove("verSelector-focus-show");
+                }
                 //判断是否有选中的值？
                 var inputs = itm.parentElement.querySelector(".verSelector-input-list").querySelectorAll("input[type='hidden']");
                 var defat = itm.parentElement.querySelector(".verSelector-text").innerText;
@@ -177,7 +179,7 @@ window.verSelector = (function () {
                 }
             }
         });
-        if (isMobile()) {
+        if (isMobile() && !show) {
             [].forEach.call(focus, function (itm) {
                 itm.classList.remove("verSelector-focus-show");
             });
@@ -309,18 +311,19 @@ window.verSelector = (function () {
     };
     //点击取消按钮
     var reset_checks = function () {
-        var actives = this.parentElement.parentElement.querySelectorAll(".actives");
-        var parent = this.parentElement.parentElement.parentElement;
-        [].forEach.call(actives, function (active) {
-            active.classList.remove("actives");
-            var icon = active.querySelector(".verSelector-icon-check");
-            if (icon) {
-                icon.classList.add("icon-check-box");
-                icon.classList.remove("icon-check-box-cicre");
-            }
-        });
-        parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
-        parent.querySelector(".verSelector-items").classList.remove("verSelector-focus-show");
+        // var actives = this.parentElement.parentElement.querySelectorAll(".actives");
+        // var parent = this.parentElement.parentElement.parentElement;
+        // [].forEach.call(actives, function (active) {
+        //     active.classList.remove("actives");
+        //     var icon = active.querySelector(".verSelector-icon-check");
+        //     if (icon) {
+        //         icon.classList.add("icon-check-box");
+        //         icon.classList.remove("icon-check-box-cicre");
+        //     }
+        // });
+        _deletes(false,true);
+        // parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
+        // parent.querySelector(".verSelector-items").classList.remove("verSelector-focus-show");
     };
     //点击保存按钮
     var save_checks = function () {
