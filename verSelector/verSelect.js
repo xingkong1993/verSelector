@@ -1,16 +1,16 @@
 window.verSelector = (function () {
-    var selector = function (param) {
-        if(!ie) {
+    var selector = function () {
+        if (!ie) {
             return false;
         }
-        foreachs;
+        props;
         css();
         select();
     };
     //下拉列表加载
     var select = function () {
         var items = document.querySelectorAll("[data-selector]");
-        [].forEach.call(items,function (it) {
+        [].forEach.call(items, function (it) {
             //生成select表单
             var name = it.name,
                 checks = it.getAttribute("data-selector-checks");
@@ -103,12 +103,12 @@ window.verSelector = (function () {
         if (defa_input) {
             defa_input = defa_input.querySelectorAll("input");
             if (defa_input) {
-                [].forEach.call(defa_input,function (ims) {
+                [].forEach.call(defa_input, function (ims) {
                     default_input_value.push(ims.value);
                 });
             }
         }
-        [].forEach.call(child,function (ite) {
+        [].forEach.call(child, function (ite) {
             if (ite.innerText.indexOf(value) >= 0) {
                 text.push(ite);
             }
@@ -149,7 +149,7 @@ window.verSelector = (function () {
     var _deletes = function (target) {
         var item = document.querySelectorAll(".verSelector-items");
         var focus = document.querySelectorAll(".verSelector-focus");
-        [].forEach.call(item,function (itm) {
+        [].forEach.call(item, function (itm) {
             if ((itm.parentElement != target && target) || itm.classList.contains("verSelector-focus-show")) {
                 itm.classList.remove("verSelector-focus-show");
                 //判断是否有选中的值？
@@ -158,7 +158,7 @@ window.verSelector = (function () {
                 defat = defat.split(",");
                 if (inputs.length) {
                     var txt = [];
-                    [].forEach.call(inputs,function (input) {
+                    [].forEach.call(inputs, function (input) {
                         var name = input.getAttribute("data-name");
                         if (defat.indexOf(name) >= 0) {
                             txt.push(name);
@@ -178,7 +178,7 @@ window.verSelector = (function () {
             }
         });
         if (isMobile()) {
-            [].forEach.call(focus,function (itm) {
+            [].forEach.call(focus, function (itm) {
                 itm.classList.remove("verSelector-focus-show");
             });
         }
@@ -204,14 +204,14 @@ window.verSelector = (function () {
         if (defa_input) {
             defa_input = defa_input.querySelectorAll("input");
             if (defa_input) {
-                [].forEach.call(defa_input,function (ims) {
+                [].forEach.call(defa_input, function (ims) {
                     default_input_value.push(ims.value);
                 });
             }
         }
 
         var _h = "";
-        [].forEach.call(options,function (i) {
+        [].forEach.call(options, function (i) {
             var cl = "";
             var icon = "";
             var value = i.getAttribute("value");
@@ -232,7 +232,7 @@ window.verSelector = (function () {
                     icon = '<i class="verJsFont verSelector-icon-check ' + ic + '"></i>'
                 }
             }
-            if (value != '') {
+            if ((value != '' && check) || !check) {
                 _h += '<p data-value="' + value + '" class="verSelector-option-value verSelector-two ' + cl + '">' + icon + ' ' + i.innerText + '</p>'
             }
         });
@@ -242,7 +242,7 @@ window.verSelector = (function () {
     //选中某一项条件
     var _option = function (checks) {
         var options = document.querySelectorAll(".verSelector-option-value");
-        [].forEach.call(options,function (items) {
+        [].forEach.call(options, function (items) {
             items.onclick = function () {
                 var text = this.innerText,
                     value = this.getAttribute("data-value");
@@ -250,7 +250,7 @@ window.verSelector = (function () {
                     this.classList.add("actives");
                     var parent = this.parentElement.parentElement.parentElement,
                         name = parent.getAttribute("data-name");
-                    [].forEach.call(options,function (ic) {
+                    [].forEach.call(options, function (ic) {
                         if (ic.innerText != text) {
                             ic.classList.remove("actives");
                         }
@@ -281,14 +281,37 @@ window.verSelector = (function () {
                         html.removeChild(el);
                     }
                 }
+            };
+            if (checks) {
+                items.ondblclick = function () {
+                    var text = this.innerText,
+                        value = this.getAttribute("data-value");
+                    this.classList.add("actives");
+                    var parent = this.parentElement.parentElement.parentElement,
+                        name = parent.getAttribute("data-name");
+                    [].forEach.call(options, function (ic) {
+                        if (ic.innerText != text) {
+                            ic.classList.remove("actives");
+                        }
+                    });
+                    //查找select，生成选中数据
+                    var html = parent.querySelector(".verSelector-input-list");
+                    var input = '<input name="' + name + '" value="' + value + '" type="hidden" data-name="' + trim(this.innerText) + '"/>';
+                    html.innerHTML = input;
+                    parent.querySelector(".verSelector-text").innerText = trim(text);
+                    parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
+                    parent.querySelector(".verSelector-items").classList.remove("verSelector-focus-show");
+                }
             }
         });
+
+
     };
     //点击取消按钮
     var reset_checks = function () {
         var actives = this.parentElement.parentElement.querySelectorAll(".actives");
         var parent = this.parentElement.parentElement.parentElement;
-        [].forEach.call(actives,function (active) {
+        [].forEach.call(actives, function (active) {
             active.classList.remove("actives");
             var icon = active.querySelector(".verSelector-icon-check");
             if (icon) {
@@ -313,7 +336,7 @@ window.verSelector = (function () {
         var html = parent.querySelector(".verSelector-input-list"),
             _h = html.querySelectorAll("input[type='hidden']"),
             text = [];
-        [].forEach.call(_h,function (its) {
+        [].forEach.call(_h, function (its) {
             text.push(its.getAttribute("data-name"));
         });
         text = text.join(",");
@@ -334,7 +357,7 @@ window.verSelector = (function () {
         link.appendChild(css_link);
         link.appendChild(icon_link);
     };
-    var foreachs = function () {
+    var props = function () {
         if (!Array.prototype.forEach) {
             Array.prototype.forEach = function (callback, thisArg) {
                 var T, k;
@@ -363,10 +386,11 @@ window.verSelector = (function () {
 
         if (!("classList" in document.documentElement)) {
             Object.defineProperty(HTMLElement.prototype, 'classList', {
-                get: function() {
+                get: function () {
                     var self = this;
+
                     function update(fn) {
-                        return function(value) {
+                        return function (value) {
                             var classes = self.className.split(/\s+/g),
                                 index = classes.indexOf(value);
 
@@ -376,26 +400,26 @@ window.verSelector = (function () {
                     }
 
                     return {
-                        add: update(function(classes, index, value) {
+                        add: update(function (classes, index, value) {
                             if (!~index) classes.push(value);
                         }),
 
-                        remove: update(function(classes, index) {
+                        remove: update(function (classes, index) {
                             if (~index) classes.splice(index, 1);
                         }),
 
-                        toggle: update(function(classes, index, value) {
+                        toggle: update(function (classes, index, value) {
                             if (~index)
                                 classes.splice(index, 1);
                             else
                                 classes.push(value);
                         }),
 
-                        contains: function(value) {
+                        contains: function (value) {
                             return !!~self.className.split(/\s+/g).indexOf(value);
                         },
 
-                        item: function(i) {
+                        item: function (i) {
                             return self.className.split(/\s+/g)[i] || null;
                         }
                     };
@@ -421,12 +445,12 @@ window.verSelector = (function () {
     var ie = function () {
         var DEFAULT_VERSION = 8.0;
         var ua = navigator.userAgent.toLowerCase();
-        var isIE = ua.indexOf("msie")>-1;
+        var isIE = ua.indexOf("msie") > -1;
         var safariVersion;
-        if(isIE){
-            safariVersion =  ua.match(/msie ([\d.]+)/)[1];
+        if (isIE) {
+            safariVersion = ua.match(/msie ([\d.]+)/)[1];
         }
-        if(safariVersion <= DEFAULT_VERSION ){
+        if (safariVersion <= DEFAULT_VERSION) {
             return false
         }
         return true;
@@ -454,7 +478,7 @@ window.verSelector = (function () {
         if (!flag) {
             var width = document.body.offsetWidth;
             //响应式操作
-            if (width <= 980) {
+            if (width <= 1024) {
                 flag = true;
             }
         }
