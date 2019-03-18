@@ -60,6 +60,7 @@ window.verSelector = (function () {
             }
         });
     };
+    var tags = 1;
     //相关操作信息
     var option = function () {
         document.onclick = function (e) {
@@ -77,6 +78,7 @@ window.verSelector = (function () {
             } else {
                 _deletes();
             }
+            e.stopPropagation();
         }
     };
     //搜索关键字查询
@@ -146,17 +148,14 @@ window.verSelector = (function () {
         _option(check);
     };
     //删除列表
-    var _deletes = function (target,show) {
+    var _deletes = function (target) {
         var item = document.querySelectorAll(".verSelector-items");
         var focus = document.querySelectorAll(".verSelector-focus");
         [].forEach.call(item, function (itm) {
-            if ((itm.parentElement != target && target) || itm.classList.contains("verSelector-focus-show")) {
-                if(!show) {
-                    itm.classList.remove("verSelector-focus-show");
-                }
+            if ((itm.parentElement != target && target) || !target) {
+                itm.classList.remove("verSelector-focus-show");
                 //判断是否有选中的值？
                 var inputs = itm.parentElement.querySelector(".verSelector-input-list").querySelectorAll("input[type='hidden']");
-                // console.log(inputs);
                 var defat = itm.parentElement.querySelector(".verSelector-text").innerText;
                 defat = defat.split(",");
                 if (inputs.length) {
@@ -190,9 +189,9 @@ window.verSelector = (function () {
     var show_options = function (tar) {
         var parents = tar.parentNode,
             select = parents.getAttribute("data-name"),
-            option = document.querySelector("[data-name=" + select + "]"),
+            options = document.querySelector("[data-name=" + select + "]"),
             items = parents.querySelector(".verSelector-items"),
-            options = option.querySelectorAll("option"),
+            options = options.querySelectorAll("option"),
             check = parents.getAttribute("data-selector-checks"),
             mobile = isMobile(),
             default_input_value = [],
@@ -322,8 +321,8 @@ window.verSelector = (function () {
         });
         var parent = this.parentElement.parentElement.parentElement;
         var ins = parent.querySelector(".verSelector-input-list").querySelectorAll("input[type='hidden']");
-        if(ins.length>0){
-            [].forEach.call(ins,function (input) {
+        if (ins.length > 0) {
+            [].forEach.call(ins, function (input) {
                 input.parentElement.removeChild(input);
             });
         }
