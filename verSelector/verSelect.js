@@ -156,6 +156,7 @@ window.verSelector = (function () {
                 }
                 //判断是否有选中的值？
                 var inputs = itm.parentElement.querySelector(".verSelector-input-list").querySelectorAll("input[type='hidden']");
+                // console.log(inputs);
                 var defat = itm.parentElement.querySelector(".verSelector-text").innerText;
                 defat = defat.split(",");
                 if (inputs.length) {
@@ -306,8 +307,6 @@ window.verSelector = (function () {
                 }
             }
         });
-
-
     };
     //点击清除按钮
     var reset_checks = function () {
@@ -321,7 +320,13 @@ window.verSelector = (function () {
                 icon.classList.remove("icon-check-box-cicre");
             }
         });
-        _deletes(this,true);
+        var parent = this.parentElement.parentElement.parentElement;
+        var ins = parent.querySelector(".verSelector-input-list").querySelectorAll("input[type='hidden']");
+        if(ins.length>0){
+            [].forEach.call(ins,function (input) {
+                input.parentElement.removeChild(input);
+            });
+        }
     };
     //点击保存按钮
     var save_checks = function () {
