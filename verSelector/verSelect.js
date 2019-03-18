@@ -38,12 +38,12 @@ window.verSelector = (function () {
                 " </div>\n" +
                 " <div class=\"verSelector-box verSelector-one\">\n" +
                 " <span class=\"verSelector-text verSelector-one\">" + defa_text + "</span>\n" +
-                " <i class=\"verJsFont icon-caret-down verSelector-caret verSelector-one\"></i>\n" +
+                " <i class=\"verJsFont ver-selector-icon-caret-down verSelector-caret verSelector-one\"></i>\n" +
                 " </div>\n" +
                 " <div class=\"verSelector-items verSelector-two\">\n" +
                 " <div class=\"verSelector-search verSelector-two\">\n" +
                 " <input type=\"search\" autocomplete=\"off\" class=\"verSelector-search-input verSelector-two\">\n" +
-                " <i class=\"verSelector-search-button verJsFont icon-search verSelector-two\"></i>\n" +
+                " <i class=\"verSelector-search-button verJsFont ver-selector-icon-search verSelector-two\"></i>\n" +
                 " </div>\n" +
                 " <div class=\"verSelector-option verSelector-two " + de_height + "\"></div>\n" +
                 btn +
@@ -130,9 +130,9 @@ window.verSelector = (function () {
                 }
                 var icon = "";
                 if (check == "true") {
-                    var ic = "icon-check-box";
+                    var ic = "ver-selector-icon-check-box";
                     if (cl) {
-                        ic = "icon-check-box-cicre";
+                        ic = "ver-selector-icon-check-box-cicre";
                     }
                     if (value != "") {
                         icon = '<i class="verJsFont verSelector-icon-check ' + ic + '"></i>'
@@ -227,9 +227,9 @@ window.verSelector = (function () {
                 }
             }
             if (check) {
-                var ic = "icon-check-box";
+                var ic = "ver-selector-icon-check-box";
                 if (cl) {
-                    ic = "icon-check-box-cicre";
+                    ic = "ver-selector-icon-check-box-cicre";
                 }
                 if (value != "") {
                     icon = '<i class="verJsFont verSelector-icon-check ' + ic + '"></i>'
@@ -266,13 +266,13 @@ window.verSelector = (function () {
                     parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
                     parent.querySelector(".verSelector-items").classList.remove("verSelector-focus-show");
                 } else {
-                    this.querySelector(".verSelector-icon-check").classList.toggle("icon-check-box");
-                    this.querySelector(".verSelector-icon-check").classList.toggle("icon-check-box-cicre");
+                    this.querySelector(".verSelector-icon-check").classList.toggle("ver-selector-icon-check-box");
+                    this.querySelector(".verSelector-icon-check").classList.toggle("ver-selector-icon-check-box-cicre");
                     this.classList.toggle("actives");
                     var parent = this.parentElement.parentElement.parentElement,
                         name = parent.getAttribute("data-name");
                     var html = parent.querySelector(".verSelector-input-list");
-                    if (this.querySelector(".verSelector-icon-check").classList.contains("icon-check-box-cicre")) {
+                    if (this.querySelector(".verSelector-icon-check").classList.contains("ver-selector-icon-check-box-cicre")) {
                         var _h = document.createElement("input");
                         _h.type = "hidden";
                         _h.name = name + "[]";
@@ -316,8 +316,8 @@ window.verSelector = (function () {
             active.classList.remove("actives");
             var icon = active.querySelector(".verSelector-icon-check");
             if (icon) {
-                icon.classList.add("icon-check-box");
-                icon.classList.remove("icon-check-box-cicre");
+                icon.classList.add("ver-selector-icon-check-box");
+                icon.classList.remove("ver-selector-icon-check-box-cicre");
             }
         });
         var parent = this.parentElement.parentElement.parentElement;

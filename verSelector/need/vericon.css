@@ -16,97 +16,96 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-search:before {
+.ver-selector-icon-search:before {
   content: "\e631";
 }
 
-.icon-guanbi:before {
+.ver-selector-icon-guanbi:before {
   content: "\e676";
 }
 
-.icon-plus:before {
+.ver-selector-icon-plus:before {
   content: "\e67c";
 }
 
-.icon-gobottom:before {
+.ver-selector-icon-gobottom:before {
   content: "\e65d";
 }
 
-.icon-minus:before {
+.ver-selector-icon-minus:before {
   content: "\e68b";
 }
 
-.icon-check-box-others:before {
+.ver-selector-icon-check-box-others:before {
   content: "\e662";
 }
 
-.icon-info:before {
+.ver-selector-icon-info:before {
   content: "\e7c5";
 }
 
-.icon-menu:before {
+.ver-selector-icon-menu:before {
   content: "\e603";
 }
 
-.icon-check-box-cicre:before {
+.ver-selector-icon-check-box-cicre:before {
   content: "\e65a";
 }
 
-.icon-warning:before {
+.ver-selector-icon-warning:before {
   content: "\e68f";
 }
 
-.icon-error:before {
+.ver-selector-icon-error:before {
   content: "\e621";
 }
 
-.icon-edit-remark:before {
+.ver-selector-icon-edit-remark:before {
   content: "\e623";
 }
 
-.icon-info-o:before {
+.ver-selector-icon-info-o:before {
   content: "\e614";
 }
 
-.icon-check-box:before {
+.ver-selector-icon-check-box:before {
   content: "\e600";
 }
 
-.icon-caret-left:before {
+.ver-selector-icon-caret-left:before {
   content: "\e6cc";
 }
 
-.icon-caret-down:before {
+.ver-selector-icon-caret-down:before {
   content: "\e6cd";
 }
 
-.icon-caret-right:before {
+.ver-selector-icon-caret-right:before {
   content: "\e6ce";
 }
 
-.icon-caret-up:before {
+.ver-selector-icon-caret-up:before {
   content: "\e6d0";
 }
 
-.icon-radio-cicre:before {
+.ver-selector-icon-radio-cicre:before {
   content: "\e677";
 }
 
-.icon-gotop:before {
+.ver-selector-icon-gotop:before {
   content: "\e602";
 }
 
-.icon-radio:before {
+.ver-selector-icon-radio:before {
   content: "\e66a";
 }
 
-.icon-success:before {
+.ver-selector-icon-success:before {
   content: "\e61a";
 }
 
-.icon-refresh:before {
+.ver-selector-icon-refresh:before {
   content: "\e652";
 }
 
-.icon-lg{font-size: 2em}
-
+.ver-selector-icon-lg{font-size: 2em}
