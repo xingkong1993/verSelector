@@ -179,7 +179,7 @@ window.verSelector = (function () {
                 }
             }
         });
-        if (isMobile() && !show) {
+        if (isMobile()) {
             [].forEach.call(focus, function (itm) {
                 itm.classList.remove("verSelector-focus-show");
             });
