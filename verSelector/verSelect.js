@@ -298,7 +298,7 @@ window.verSelector = (function () {
                     });
                     //查找select，生成选中数据
                     var html = parent.querySelector(".verSelector-input-list");
-                    var input = '<input name="' + name + '" value="' + value + '" type="hidden" data-name="' + trim(this.innerText) + '"/>';
+                    var input = '<input name="' + name + '[]" value="' + value + '" type="hidden" data-name="' + trim(this.innerText) + '"/>';
                     html.innerHTML = input;
                     parent.querySelector(".verSelector-text").innerText = trim(text);
                     parent.querySelector(".verSelector-focus").classList.remove("verSelector-focus-show");
