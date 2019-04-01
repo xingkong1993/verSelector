@@ -137,7 +137,7 @@ window.verSelector = (function () {
                         ic = "ver-selector-icon-check-box-cicre";
                     }
                     if (value != "") {
-                        icon = '<i class="verJsFont verSelector-icon-check ' + ic + '"></i>'
+                        icon = '<i class="verSelector-two verJsFont verSelector-icon-check ' + ic + '"></i>'
                     }
                 }
                 _h += '<p data-value="' + value + '" class="verSelector-option-value verSelector-two ' + cl + '">' + icon + ' ' + text[i].innerText + '</p>'
