@@ -231,7 +231,7 @@ window.verSelector = (function () {
                     ic = "ver-selector-icon-check-box-cicre";
                 }
                 if (value != "") {
-                    icon = '<i class="verJsFont verSelector-icon-check ' + ic + '"></i>'
+                    icon = '<i class="verSelector-two verJsFont verSelector-icon-check ' + ic + '"></i>'
                 }
             }
             if ((value != '' && check) || !check) {
