@@ -25,7 +25,7 @@ new verSelector();
     2. data-selector-checks：多选关键词，加入关键词且赋值为true即可支持多选搜索条件，在加入此关键词之前需要加入data-selector关键词
 2. IE浏览器暂时支持9.0以上版本使用
 ###### 四、样式实例
-[多选&单选](https://www.xincheng-blog.cn/ver.select.html)
+[多选&单选](https://www.xincheng-blog.cn/details.html?id=20190402WUhsWB5tmu)
 ###### 版权信息
 > Copyright © 2019 by [搬砖的小白](https://www.xincheng-blog.cn)  
 > All rights reserved。
