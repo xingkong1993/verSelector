@@ -1,0 +1,44 @@
+{
+  "id": "1726057",
+  "name": "verselect",
+  "font_family": "verJs",
+  "css_prefix_text": "verJsFont-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "10318793",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "11186114",
+      "name": "checkbox",
+      "font_class": "checked",
+      "unicode": "e6f0",
+      "unicode_decimal": 59120
+    },
+    {
+      "icon_id": "12490260",
+      "name": "check-box",
+      "font_class": "checkbox",
+      "unicode": "e915",
+      "unicode_decimal": 59669
+    },
+    {
+      "icon_id": "13360107",
+      "name": "三角形",
+      "font_class": "selector-icon-caret-up",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "13813958",
+      "name": "三角形",
+      "font_class": "selector-icon-caret-down",
+      "unicode": "e669",
+      "unicode_decimal": 58985
+    }
+  ]
+}

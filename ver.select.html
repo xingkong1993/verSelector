@@ -11,24 +11,49 @@
     <title>select搜索与多选</title>
 </head>
 <body>
-<div>
+<div style="display: inline-block;width: 45%">
+    <h5>多选</h5>
+    <div id="search"></div>
+</div>
+<div style="display: inline-block;width: 45%">
     <h5>单选</h5>
-    <select name="search" id="search" data-selector>
-        <option value="">请选择</option>
-    </select>
+    <div id="sers"></div>
 </div>
 <div>
-    <h5>多选</h5>
-    <select name="searchs" id="searchs" data-selector data-selector-checks="true">
-        <option value="">请选择</option>
-    </select>
+    <button id="sears-forms">
+        获取选中的值
+    </button>
+    <button id="param">
+        获取选中的参数
+    </button>
 </div>
 </body>
 <script src="asset/js/jquery.min.js"></script>
-<script src="asset/js/area.js"></script>
-<script src="asset/js/select.js"></script>
-<script src="verSelector/verSelect.js"></script>
+<script src="verSelector/verSelect.2.0.js"></script>
 <script>
-    new verSelector();
+    var abs = new verjs_select();
+    abs.render({
+        elem: "#search",
+        data: [{id: 1, name: "123456"}, {id: 2, name: "哈哈哈哈"}],
+        init_value: [1],
+        body_height: 300,
+        checkbox: true,
+        name: "test"
+    });
+    abs.render({
+        elem: "#sers",
+        data: [{id: 1, name: "hahaha"}, {id: 2, name: "哈哈哈哈123"}],
+        init_value: [1],
+        body_height: 300,
+        width: 120 + "px",
+        checkbox: false
+    });
+    $("#sears-forms").click(function () {
+        alert("多选:" + JSON.stringify(abs.get_form_value('search')) + "\n" + "单选：" + JSON.stringify(abs.get_form_value('sers')))
+    });
+    $("#param").click(function () {
+        alert("多选:" + JSON.stringify(abs.get_value('search')) + "\n" + "单选：" + JSON.stringify(abs.get_value('sers')))
+    });
+
 </script>
 </html>

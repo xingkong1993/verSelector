@@ -1,0 +1,37 @@
+@font-face {font-family: "verJsFont";
+  src: url('iconfont.eot?t=1585639301996'); /* IE9 */
+  src: url('iconfont.eot?t=1585639301996#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAQMAAsAAAAACKgAAAO9AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDQAqEJIM9ATYCJAMYCw4ABCAFhEkHeRtoBxEVnLHIfibYtnCyWc9aoxn90IzemiCgvKo62rkszROsdwLAtKUdSxGPAg3IVRjxCss/3zJ7173yOg0Q9Ah+AgTM/c819ZqWAt8OAK4XURoVOJrAng+8w8smOpDhxHwKsmuJf7CuQwA6XkQgCooq6mFCgcwTgOjWuWNrTBkHSoNaYDJrFVuV42IWKiZpsnQNmBl8XnwlTphAQpUhS2s6FLYj5wOfHeVRxiiaeQjCdLcBqIAMRAAKiH6VgR7IUSICGV0/XSEP0DEhIX3gQ+cPvz47GoZBddIcKKajY0GFo/zhqUjIIDSIwQJkRVKFDzg0BHzoREOBD535ZuMv+JB4RAFGHtuiTThFB+YBdyEyD5bJyEgIhIWFYmPjYK+xs2v74EGDhw8b3r9f/969kE0z0NbD29q2r+kwdP1xV23RsQCbDSfczJaeDO5pc+6ej7b6fqHtxYf+ZmseDJri1GDBkqVbN653rN9x4dTNoxzazeuOKqgVpqJWqIJaI+qd6w+denTvmrABCw5M2efQb9Oq3YeHDplyaNfq0P7z90896Dxw69o9R2a12CK/fi1vlrd4ui0Cm7BgkL253lhp507J1Y4TWHAcA+1YRGd2SUv7Yc8kRc5ZFa+jx68iqDaya0pKVFTOUhM9zLeuk/2Lg5cnN25iN2DA5AXr6/V/EXQi9GX/RS9Iepv8arLVI6tJr56+WsQuXfzqScnT17Vrez3yrFP79tPb8Ho+8uKOYGFRzSzcj9UZaz925zWvoKhr/kb7uXWu0di/uGYU7tfqjPUvVXldGxcaW+fY5auMMcruUWAcUg3ZC4w36m+55Kd/h4aPw1q3tM74bzJXAHiy2WZ8YDNGdQ+Mgj9nRBd+cYeWAqAakkScmqJpHK4TBx4hjYRXE5Dgjw7Br43Y8WIqk2PnUhCoOCYgYYYbyKj4ogoZBCrmhIOGShLohJO+2xx7OiAjlFpAGPgvA4JuLUisbAeZ7iiqkOdB5eQPNLr3oGvwf6S5oAq3+QKj8GS/1Dtegr1BtwMg13RD+5yMgHeR34bU80J1UWXTJyyQYSvSq21UAwXhmY4j3IZpYorCA5wWnWo8lGWoelHheM628gVG4Yn9kt7xErxf6tYAyDXd0D4nI+iK8N9A6geOJ7VC1YSeDEum75LcBKe0DdVAgvAsmo6b0IErnJjE6kkDnBa6AbF4UNJBoauhOIxpfqcjgI4cqSUJWShCFZowQxtGXLeyC+BG+HWQa/mzS5iu08+SP9UHc2cEmj/jvizP83vJMgAAAA==') format('woff2'),
+  url('iconfont.woff?t=1585639301996') format('woff'),
+  url('iconfont.ttf?t=1585639301996') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1585639301996#verJs') format('svg'); /* iOS 4.1- */
+}
+
+.verJsFont {
+  font-family: "verJsFont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.verJsFont-search:before {
+  content: "\e600";
+}
+
+.verJsFont-checked:before {
+  content: "\e6f0";
+}
+
+.verJsFont-checkbox:before {
+  content: "\e915";
+}
+
+.verJsFont-selector-icon-caret-up:before {
+  content: "\e668";
+}
+
+.verJsFont-selector-icon-caret-down:before {
+  content: "\e669";
+}
+
