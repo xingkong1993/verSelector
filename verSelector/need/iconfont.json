@@ -1,10 +1,31 @@
 {
   "id": "1726057",
   "name": "verselect",
-  "font_family": "verJs",
+  "font_family": "verJsFont",
   "css_prefix_text": "verJsFont-",
   "description": "",
   "glyphs": [
+    {
+      "icon_id": "6488980",
+      "name": "全选",
+      "font_class": "quanxuan",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "7632797",
+      "name": "反选",
+      "font_class": "tubiaozhizuomoban",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "9145154",
+      "name": "消息列表访问取消",
+      "font_class": "cancel",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
     {
       "icon_id": "10318793",
       "name": "search",

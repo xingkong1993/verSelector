@@ -108,97 +108,179 @@ window.verjs_select = (function () {
             //引入默认样式
             requid_css();
             //重置配置项
-            var configs = Object.assign(this.config, data);
-            configs.name = name;
-            //获取到节点
-            objs = document.querySelector(data.elem);
-            objs.classList.add("verjs-select-box");
-            objs.setAttribute("data-verSelect","true");
-            this.config.objs = objs.id;
-            window.sessionStorage.setItem(objs.id, JSON.stringify(this.config));
-            var select_items = document.createElement("div");
-            select_items.className = "verjs-select";
-            select_items.style.width = configs.width;
-            select_items.style.height = configs.height;
-            select_items.setAttribute("data-verSelect","true");
-            var _h = '<span class="verjs-option-selected" id="' + (objs.id) + '-selected" data-verSelect="true">' + configs.placeholder + '</span><i class="verJsFont verJsFont-selector-icon-caret-down" data-verSelect="true"></i>';
-            select_items.innerHTML = _h;
-            var options_list = document.createElement("div");
-            options_list.className = "verjs-select-option-list";
-            options_list.id = objs.id + 'option-list';
-            options_list.style.maxHeight = configs.body_height + 'px';
-            options_list.style.minWidth = configs.width;
-            options_list.style.top = configs.height;
-            options_list.setAttribute("data-verSelect","true");
-            var _h = document.createElement('div');
-            _h.className = 'verjs-search-items';
-            _h.id = objs.id + '-search';
-            _h.setAttribute("data-verSelect","true");
-            var input = document.createElement("input");
-            input.type = 'text';
-            input.className = "verjs-search-input";
-            input.placeholder = configs.search_text;
-            input.onkeyup = this.search_input;
-            input.setAttribute("data-id", objs.id);
-            input.setAttribute("data-verSelect","true");
-            _h.append(input);
-            var icon = document.createElement("i");
-            icon.classList = "verJsFont verJsFont-search";
-            icon.onclick = this.search_input;
-            icon.setAttribute("data-id", objs.id);
-            icon.setAttribute("data-verSelect","true");
-            _h.append(icon);
-            options_list.append(_h);
-            var ul = document.createElement("ul");
-            ul.className = 'verjs-select-option-items';
-            ul.id = objs.id + '-options';
-            ul.style = 'max-height:' + (configs.body_height - 49) + 'px';
-            ul.setAttribute("data-verSelect","true");
-            options_list.append(ul);
-            objs.appendChild(select_items);
-            objs.appendChild(options_list);
-            objs.setAttribute("data-objes-items", JSON.stringify(configs.data));
-            objs.setAttribute("data-objes-defaults", JSON.stringify(configs.init_value));
-            this.option_list();
-            select_items.onclick = function (event) {
-                event.stopPropagation();
-                [].forEach.call(document.getElementsByClassName("verjs-select-option-list"),function (i) {
-                    i.style.display = 'none';
-                    var icon = i.parentNode.querySelector(".verjs-select .verJsFont.verJsFont-selector-icon-caret-up");
-                    if(icon){
-                        icon.classList.remove("verJsFont-selector-icon-caret-up");
-                        icon.classList.add("verJsFont-selector-icon-caret-down");
-                    }
-                });
-                var icon = this.querySelector("i");
-                if (icon.classList.contains("verJsFont-selector-icon-caret-down")) {
-                    options_list.style.display = "block";
-                    options_list.style.zIndex = "999";
-                    icon.classList.remove("verJsFont-selector-icon-caret-down");
-                    icon.classList.add("verJsFont-selector-icon-caret-up");
-                } else {
-                    options_list.style.display = "none";
-                    options_list.style.zIndex = "999";
-                    icon.classList.add("verJsFont-selector-icon-caret-down");
-                    icon.classList.remove("verJsFont-selector-icon-caret-up");
-                }
-            };
+            Object.assign(this.config, data);
+            this.config.name = name;
+            this.dom_code();
             document.onclick = function (e) {
                 var target = e.target;
                 var selectr = target.getAttribute("data-verselect");
-                if(!selectr){
+                if (!selectr) {
                     var selectlist = document.getElementsByClassName("verjs-select-option-list");
-                    [].forEach.call(selectlist,function (i) {
-                        i.style.display = 'none';
+                    [].forEach.call(selectlist, function (i) {
+                        i.classList.remove("verjs-select-option-list-hide");
                         var icon = i.parentNode.querySelector(".verjs-select .verJsFont.verJsFont-selector-icon-caret-up");
-                        if(icon){
+                        if (icon) {
                             icon.classList.remove("verJsFont-selector-icon-caret-up");
                             icon.classList.add("verJsFont-selector-icon-caret-down");
                         }
 
                     });
+                } else if (target.getAttribute('data-verselect-input')) {
+                    var self_option = '';
+                    if (!target.classList.contains("verjs-select")) {
+                        var options = target.parentNode.nextSibling;
+                        var icon = target.classList.contains("verJsFont") ? target : target.nextSibling;
+                    } else {
+                        var options = target.nextSibling;
+                        var icon = target.querySelector(".verJsFont");
+                    }
+                    if (options.classList.contains("verjs-select-option-list")) {
+                        options.classList.toggle("verjs-select-option-list-hide");
+                        self_option = options.id;
+                    }
+                    if (icon) {
+                        var add_class = icon.classList.contains("verJsFont-selector-icon-caret-up") ? "verJsFont-selector-icon-caret-down" : "verJsFont-selector-icon-caret-up";
+                        var remove_class = icon.classList.contains("verJsFont-selector-icon-caret-down") ? "verJsFont-selector-icon-caret-down" : "verJsFont-selector-icon-caret-up";
+                        icon.classList.add(add_class);
+                        icon.classList.remove(remove_class);
+                    }
+                    //隐藏其他打开的选择框
+                    [].forEach.call(document.getElementsByClassName('verjs-select-option-list'), function (item) {
+                        if (self_option != item.id) {
+                            item.classList.remove("verjs-select-option-list-hide");
+                            var prev = item.previousSibling;
+                            if (prev.classList.contains("verjs-select")) {
+                                var icon = prev.querySelector(".verJsFont-selector-icon-caret-up");
+                                if (icon) {
+                                    icon.classList.remove("verJsFont-selector-icon-caret-up");
+                                    icon.classList.add("verJsFont-selector-icon-caret-down");
+                                }
+                            }
+                        }
+                    });
                 }
             }
+        },
+        dom_code() {
+            var objs = document.querySelector(this.config.elem);
+            objs.classList.add("verjs-select-box");
+            objs.setAttribute("data-verSelect", "true");
+            this.config.objs = objs.id;
+            var select_items = document.createElement("div");
+            select_items.className = "verjs-select";
+            select_items.style.width = this.config.width;
+            select_items.style.height = this.config.height;
+            select_items.setAttribute("data-verSelect", "true");
+            select_items.setAttribute("data-verselect-input", "true");
+            var _h = '<span class="verjs-option-selected" id="' + (objs.id) + '-selected" data-verSelect="true" data-verselect-input="true">' + this.config.placeholder + '</span><i class="verJsFont verJsFont-selector-icon-caret-down" data-verSelect="true" data-verselect-input="true"></i>';
+            select_items.innerHTML = _h;
+            var options_list = document.createElement("div");
+            options_list.className = "verjs-select-option-list";
+            options_list.id = objs.id + 'option-list';
+            options_list.style.maxHeight = this.config.body_height + 'px';
+            var width = parseInt(this.config.width) + 30;
+            options_list.style.minWidth = width + "px";
+            options_list.style.top = /^\d+px$/.test(this.config.height) ? (parseInt(this.config.height) - 5) + "px" : "30px";
+            options_list.setAttribute("data-verSelect", "true");
+            var search = document.createElement('div');
+            search.className = 'verjs-search-items';
+            search.id = objs.id + '-search';
+            search.setAttribute("data-verSelect", "true");
+            search.style.width = width + "px";
+            var _search_height = this.config.checkbox ? 80 : 40;
+            search.style.height = _search_height + "px";
+            if(this.config.checkbox){
+               var btn =  this.search_btns();
+               search.append(btn);
+            }
+            var input = document.createElement("input");
+            input.type = 'text';
+            input.className = "verjs-search-input";
+            input.placeholder = this.config.search_text;
+            input.onkeyup = this.search_input;
+            input.setAttribute("data-id", objs.id);
+            input.setAttribute("data-verSelect", "true");
+            input.style.width = (width - 35) + "px";
+            search.append(input);
+            var icon = document.createElement("i");
+            icon.classList = "verJsFont verJsFont-search";
+            icon.onclick = this.search_input;
+            icon.setAttribute("data-id", objs.id);
+            icon.setAttribute("data-verSelect", "true");
+            if(this.config.checkbox){
+                icon.style.top = "40px";
+            }
+            search.append(icon);
+            options_list.append(search);
+            var ul = document.createElement("ul");
+            ul.className = 'verjs-select-option-items';
+            ul.id = objs.id + '-options';
+            ul.style = 'max-height:' + (this.config.body_height - _search_height - 5) + 'px';
+            ul.setAttribute("data-verSelect", "true");
+            options_list.append(ul);
+            objs.appendChild(select_items);
+            objs.appendChild(options_list);
+            objs.setAttribute("data-objes-items", JSON.stringify(this.config.data));
+            objs.setAttribute("data-objes-defaults", JSON.stringify(this.config.init_value));
+            this.option_list();
+        },
+        search_btns(){
+            var btn_list = document.createElement('div');
+            btn_list.className = 'verjs-select-btn-list';
+            btn_list.setAttribute("data-verSelect", "true");
+            var btnlist = this.config.btn;
+            var _self = this;
+            [].forEach.call(btnlist,function (i) {
+                var icon = document.createElement("span");
+                icon.className = i.icon;
+                icon.innerText = i.name;
+                if(typeof i.callfun == "function"){
+                    icon.onclick = i.callfun;
+                } else {
+                    icon.setAttribute("data-change",i.callfun)
+                    icon.onclick = _self.all_chang_btn;
+                }
+                icon.setAttribute("data-id",_self.config.objs);
+                icon.setAttribute("data-verSelect", "true");
+                btn_list.append(icon);
+            });
+            return btn_list;
+        },
+        all_chang_btn(){
+            var item = this.getAttribute('data-change'),
+                list = JSON.parse(window.sessionStorage.getItem("verselect_"+this.getAttribute('data-id')));
+            var options = document.getElementById(list.objs+"-options").querySelectorAll(".verjs-select-option-items-value");
+            var value = [],_default = [];
+            if(options.length){
+                [].forEach.call(options,function (i) {
+                    if(item == 'changeAll'){
+                        i.classList.add("verjs-select-selecteds");
+                        value.push(JSON.parse(i.getAttribute("data-item")));
+                        _default.push(i.innerText);
+                        i.querySelector("i").classList.remove("verJsFont-checkbox");
+                        i.querySelector("i").classList.add("verJsFont-checked");
+                    } else if(item == 'rechangeAll'){
+                        if(i.classList.contains("verjs-select-selecteds")){
+                            i.classList.remove("verjs-select-selecteds");
+                            i.querySelector("i").classList.add("verJsFont-checkbox");
+                            i.querySelector("i").classList.remove("verJsFont-checked");
+                        } else {
+                            i.classList.add("verjs-select-selecteds");
+                            value.push(JSON.parse(i.getAttribute("data-item")));
+                            _default.push(i.innerText);
+                            i.querySelector("i").classList.remove("verJsFont-checkbox");
+                            i.querySelector("i").classList.add("verJsFont-checked");
+                        }
+                    } else{
+                        i.classList.remove("verjs-select-selecteds");
+                        i.querySelector("i").classList.add("verJsFont-checkbox");
+                        i.querySelector("i").classList.remove("verJsFont-checked");
+                    }
+                });
+            }
+            list.value = value;
+            window.sessionStorage.setItem("verselect_"+list.objs,JSON.stringify(list));
+            document.getElementById(list.objs+'-selected').innerText = _default.length?_default.join(","):list.placeholder;
         },
         //系统配置项
         config: {
@@ -214,7 +296,8 @@ window.verjs_select = (function () {
             search_text: "请输入搜索内容",//搜索框提示文字
             empty_search: "没有可选择信息",//空数据提示文字
             name: '',//表单名称，如果为空则不保存到表单中
-            value: []
+            value: [],
+            btn: [{name:"全选",icon:"verJsFont verJsFont-quanxuan",callfun:"changeAll"},{name:"反选",icon:"verJsFont verJsFont-tubiaozhizuomoban",callfun:"rechangeAll"},{name:"清空",icon:"verJsFont verJsFont-cancel",callfun:"clearChange"}]
         },
         //初始化参数
         option_list() {
@@ -233,7 +316,7 @@ window.verjs_select = (function () {
                 h.setAttribute("data-item", JSON.stringify(i));
                 h.setAttribute("data-value", i[_self.config.bindid]);
                 h.setAttribute("data-id", _self.config.objs);
-                h.setAttribute("data-verSelect","true");
+                h.setAttribute("data-verSelect", "true");
                 var select = false;
                 if (_self.config.init_value.length && _self.config.init_value.indexOf(i[_self.config.bindid]) >= 0) {
                     _self.config.value.push(i);
@@ -253,11 +336,11 @@ window.verjs_select = (function () {
             if (_default.length) {
                 document.getElementById(this.config.objs + "-selected").innerText = _self.config.checkbox ? (_default.join(",")) : _default[_default.length - 1];
             }
-            window.sessionStorage.setItem(_self.config.objs, JSON.stringify(_self.config));
+            window.sessionStorage.setItem('verselect_' + _self.config.objs, JSON.stringify(_self.config));
         },
         //点击选项框
         click_value(_self) {
-            var config = window.sessionStorage.getItem(this.getAttribute("data-id"));
+            var config = window.sessionStorage.getItem('verselect_' + this.getAttribute("data-id"));
             config = JSON.parse(config);
             config.value = [];
             if (this.classList.contains("verjs-select-selecteds")) {
@@ -286,13 +369,13 @@ window.verjs_select = (function () {
                 config.value.push(JSON.parse(i.getAttribute("data-item")));
                 _default.push(i.innerText);
             });
-            window.sessionStorage.setItem(config.objs, JSON.stringify(config));
+            window.sessionStorage.setItem('verselect_' + config.objs, JSON.stringify(config));
             document.getElementById(config.objs + "-selected").innerText = config.checkbox ? _default.join(",") : _default[_default.length - 1];
             if (selected.length < 1) {
                 document.getElementById(config.objs + "-selected").innerText = config.placeholder;
             }
             if (!config.checkbox) {
-                document.getElementById(config.objs + "option-list").style.display = 'none';
+                document.getElementById(config.objs + "option-list").classList.remove('verjs-select-option-list-hide');
                 var icon = document.getElementById(config.objs).querySelector('.verJsFont-selector-icon-caret-up');
                 if (icon) {
                     icon.classList.add("verJsFont-selector-icon-caret-down");
@@ -302,7 +385,7 @@ window.verjs_select = (function () {
         },
         //获取配置参数
         get_config: function (selected) {
-            return JSON.parse(window.sessionStorage.getItem(selected));
+            return JSON.parse(window.sessionStorage.getItem('verselect_' + selected));
         },
         //获取提交的form表单值
         get_form_value: function (selected) {
@@ -328,7 +411,7 @@ window.verjs_select = (function () {
         },
         //搜索关键字
         search_input() {
-            var config = JSON.parse(window.sessionStorage.getItem(this.getAttribute("data-id")));
+            var config = JSON.parse(window.sessionStorage.getItem('verselect_' + this.getAttribute("data-id")));
             var value = '';
             if (this.classList.contains("verJsFont")) {
                 value = this.parentNode.querySelector(".verjs-search-input").value;
@@ -359,11 +442,11 @@ window.verjs_select = (function () {
                 var html = document.createElement("li");
                 html.className = "verjs-empty-option";
                 html.innerText = config.empty_search;
-                html.setAttribute("data-verSelect",'true');
+                html.setAttribute("data-verSelect", 'true');
                 document.getElementById(config.objs + '-options').append(html);
                 // document.getElementById(config.objs+'-options').ap = '';
             } else if (query > 0 && empty_length) {
-               empty_length.remove();
+                empty_length.remove();
             }
         }
     };

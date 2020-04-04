@@ -48,7 +48,6 @@
 }
 
 .verjs-select-option-list .verjs-search-items {
-    height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #dddddd;
     position: relative;
@@ -59,7 +58,19 @@
     outline: none;
     padding-left: 10px;
     font-size: 12px;
-    width: calc(100% - 40px);
+}
+.verjs-select-option-list .verjs-search-items .verjs-select-btn-list {
+    height: 40px;
+    overflow: hidden;
+    width: 93.7%;
+    margin: auto;
+}
+.verjs-select-option-list .verjs-search-items .verjs-select-btn-list span{
+    cursor: pointer;
+    display: inline-block;
+    width: 33.3333333333%;
+    font-size: 14px;
+    color: coral;
 }
 
 .verjs-select-option-list .verjs-search-items i {
@@ -72,10 +83,12 @@
     color: coral;
     background: #ffffff;
 }
-
+.verjs-select-option-list.verjs-select-option-list-hide{
+    display: block;
+}
 .verjs-select-option-items {
     padding: 0;
-    margin: 10px auto;
+    margin: 5px auto;
     overflow: auto;
 }
 
