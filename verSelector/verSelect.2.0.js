@@ -186,13 +186,16 @@ window.verjs_select = (function () {
             search.className = 'verjs-search-items';
             search.id = objs.id + '-search';
             search.setAttribute("data-verSelect", "true");
-            search.style.width = width + "px";
-            var _search_height = this.config.checkbox ? 80 : 40;
+            // search.style.width = width + "px";
+            var _search_height = this.config.checkbox ? 70 : 35;
             search.style.height = _search_height + "px";
             if(this.config.checkbox){
                var btn =  this.search_btns();
                search.append(btn);
             }
+            var clos = document.createElement("div");
+            clos.className = "verjs-select-search-btn";
+            clos.setAttribute("data-verSelect", "true");
             var input = document.createElement("input");
             input.type = 'text';
             input.className = "verjs-search-input";
@@ -200,17 +203,15 @@ window.verjs_select = (function () {
             input.onkeyup = this.search_input;
             input.setAttribute("data-id", objs.id);
             input.setAttribute("data-verSelect", "true");
-            input.style.width = (width - 35) + "px";
-            search.append(input);
+            input.style.width = "calc(100% - 35px)";
+            clos.append(input);
             var icon = document.createElement("i");
             icon.classList = "verJsFont verJsFont-search";
             icon.onclick = this.search_input;
             icon.setAttribute("data-id", objs.id);
             icon.setAttribute("data-verSelect", "true");
-            if(this.config.checkbox){
-                icon.style.top = "40px";
-            }
-            search.append(icon);
+            clos.append(icon);
+            search.append(clos);
             options_list.append(search);
             var ul = document.createElement("ul");
             ul.className = 'verjs-select-option-items';
